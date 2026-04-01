@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Clipboard</title>
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      width: 320px;
+      min-height: 200px;
+      max-height: 560px;
+      background: #f9f9f8;
+      font-family: 'DM Mono', 'Fira Mono', 'Courier New', monospace;
+      font-size: 13px;
+      color: #1a1a1a;
+      display: flex;
+      flex-direction: column;
+    }
+
+    /* ── Header ── */
+    #header {
+      display: flex;
+      align-items: center;
+      padding: 14px 16px 12px;
+      border-bottom: 1px solid #ebe8e3;
+      flex-shrink: 0;
+    }
+
+    #title {
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: #999;
+    }
+
+    /* ── Items ── */
+    #items-container {
+      flex: 1;
+      overflow-y: auto;
+      padding: 10px 12px;
+      display: flex;
+      flex-direction: column;
+      gap: 7px;
+      scrollbar-width: thin;
+      scrollbar-color: #ddd transparent;
+    }
+
+    #items-container::-webkit-scrollbar { width: 4px; }
+    #items-container::-webkit-scrollbar-thumb {
+      background: #ddd;
+      border-radius: 2px;
+    }
+
+    .item {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      animation: item-in 0.15s ease both;
+    }
+
+    @keyframes item-in {
+      from { opacity: 0; transform: translateY(4px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    .item-input {
+      flex: 1;
+      background: #fff;
+      border: 1px solid #e0ddd8;
+      border-radius: 6px;
+      padding: 7px 9px;
+      color: #1a1a1a;
+      font-family: 'DM Mono', 'Fira Mono', 'Courier New', monospace;
+      font-size: 12px;
+      outline: none;
+      min-width: 0;
+      transition: border-color 0.15s, box-shadow 0.15s;
+    }
+
+    .item-input::placeholder { color: #ccc; }
+
+    .item-input:focus {
+      border-color: #4a90e2;
+      box-shadow: 0 0 0 3px rgba(74, 144, 226, 0.12);
+    }
+
+    .action-btn {
+      background: #fff;
+      border: 1px solid #e0ddd8;
+      border-radius: 6px;
+      color: #aaa;
+      cursor: pointer;
+      padding: 6px 8px;
+      transition: all 0.15s;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+
+    .action-btn:hover {
+      background: #f0efed;
+      color: #333;
+      border-color: #ccc;
+    }
+
+    .action-btn.delete-btn:hover {
+      background: #fdf0f0;
+      border-color: #f0b8b8;
+      color: #c0392b;
+    }
+
+    .action-btn.copied {
+      background: #f0faf4;
+      border-color: #a8dfc0;
+      color: #2e9e62;
+    }
+
+    /* ── Empty state ── */
+    #empty {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      padding: 40px 0;
+      color: #ccc;
+      font-size: 11px;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      text-align: center;
+    }
+
+    /* ── Footer ── */
+    #footer {
+      padding: 8px 12px 12px;
+      border-top: 1px solid #ebe8e3;
+      flex-shrink: 0;
+    }
+
+    #add-btn {
+      width: 100%;
+      background: #fff;
+      border: 1px dashed #d0cdc8;
+      border-radius: 7px;
+      color: #aaa;
+      cursor: pointer;
+      padding: 8px 12px;
+      font-family: 'DM Mono', 'Fira Mono', 'Courier New', monospace;
+      font-size: 11px;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      transition: all 0.15s;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 7px;
+    }
+
+    #add-btn:hover {
+      background: #f5f5f3;
+      border-color: #4a90e2;
+      color: #4a90e2;
+    }
+
+    #add-btn:active { transform: scale(0.98); }
+  </style>
+</head>
+<body>
+
+  <div id="header">
+    <span id="title">Clipboard</span>
+  </div>
+
+  <div id="items-container">
+    <div id="empty">
+      <svg width="26" height="26" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <rect x="8" y="2" width="8" height="4" rx="1" stroke="currentColor" stroke-width="1.5"/>
+        <path d="M8 3H5a2 2 0 00-2 2v14a2 2 0 002 2h14a2 2 0 002-2V5a2 2 0 00-2-2h-3" stroke="currentColor" stroke-width="1.5"/>
+      </svg>
+      <span>No items yet</span>
+    </div>
+  </div>
+
+  <div id="footer">
+    <button id="add-btn">
+      <svg width="11" height="11" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M6 1v10M1 6h10" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/>
+      </svg>
+      New Item
+    </button>
+  </div>
+
+  <script src="popup.js"></script>
+</body>
+</html>

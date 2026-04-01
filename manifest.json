@@ -1,0 +1,14 @@
+{
+  "manifest_version": 3,
+  "name": "On-Screen Clipboard",
+  "version": "2.0",
+  "description": "A persistent clipboard pane, fully isolated from web pages",
+  "permissions": [
+    "storage",
+    "clipboardWrite"
+  ],
+  "action": {
+    "default_popup": "popup.html",
+    "default_title": "Clipboard"
+  }
+}

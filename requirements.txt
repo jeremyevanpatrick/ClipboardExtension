@@ -1,0 +1,34 @@
+On-Screen Clipboard — Chrome/Brave Extension
+Build a browser extension popup (no content scripts) that functions as a persistent, multi-item clipboard.
+Storage & Privacy
+
+All data stored exclusively in chrome.storage.local
+No content scripts; no HTML injected into web pages
+No background service worker required
+
+UI — Popup
+
+Opens when the user clicks the toolbar icon
+Fixed width 320px, max-height 560px, light theme (#f9f9f8 background, warm grey borders)
+Monospace font throughout (DM Mono / Fira Mono / Courier New)
+Three sections: header, scrollable items list, footer
+
+Header
+
+Small all-caps label "Clipboard"
+
+Items List
+
+Each item is a single-line text input with an action button to its right
+When the input is empty the action button shows an × and deletes the item on click
+When the input has content the action button shows a copy icon; clicking it copies the text to the clipboard and briefly flashes green with a checkmark
+Items persist their text across sessions
+New items are appended at the bottom of the list with a subtle fade-in animation
+
+Footer
+
+"+ New Item" dashed button, always visible, appends a new empty item and focuses its input
+
+Empty State
+
+When no items exist, show a centred clipboard icon and "No items yet" label in the items area
