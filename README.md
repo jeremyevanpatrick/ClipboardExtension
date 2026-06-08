@@ -12,7 +12,7 @@ The system clipboard holds one thing at a time. This extension lets you pin freq
 
 ## Privacy
 
-Most clipboard extensions inject HTML directly into every page you visit, making your stored text readable by the page's JavaScript. This extension does not do that.
+This clipboard extension stores data locally in your browser without injecting HTML into every page you visit, preventing websites from accessing your saved text through their JavaScript code.
 
 - **No content scripts** — nothing is ever injected into any web page
 - **No background service worker** — no persistent process running in the background
@@ -40,18 +40,6 @@ To update, download the new zip, replace the folder contents, and click the **�
 | Delete an item | Clear the text field, then click the × button |
 
 Items and their text are saved automatically and persist across browser sessions.
-
-## Development
-
-The extension is intentionally minimal — three files, no build step, no dependencies.
-
-```
-popup.html   — markup and styles
-popup.js     — all logic
-manifest.json
-```
-
-To make changes, edit the files directly and click **↺** reload on the extensions page, then close and reopen the popup.
 
 ## License
 
